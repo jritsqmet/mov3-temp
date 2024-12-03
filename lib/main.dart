@@ -26,7 +26,8 @@ class Cuerpo extends StatelessWidget {
         children: [
           Text("Ejercicio 1"),
           celcius_input(),
-          calcular_btn()
+          calcular_btn(context),
+          Text("F a C")
         ],
       ),
     );
@@ -41,7 +42,22 @@ Widget celcius_input(){
   );
 }
 
-Widget calcular_btn(){
-  return ElevatedButton.icon(onPressed: ()=>(), 
+Widget calcular_btn(context){
+  return ElevatedButton.icon(onPressed: ()=> calcular(context), 
   label: Text("Calcular"), icon: Icon(Icons.calculate),);
+}
+
+void calcular(context){
+  showDialog(context: context, builder: (context){
+    return AlertDialog(
+      title: Text("Respuesta"),
+      content: 
+      Text("La temperatura de ${grados.text} ° en F es ${celciusF()}"),
+    );
+  }  );
+}
+
+double celciusF(){
+  double c = double.parse( grados.text );
+  return (c*1.8) + 32;
 }
